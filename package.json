@@ -1,0 +1,26 @@
+{
+  "fitbit": {
+    "appUUID": "9c6b5381-5580-4a00-9500-879737fd8638",
+    "appType": "app",
+    "appDisplayName": "Daily Sun",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ff5722",
+    "requestedPermissions": [
+      "access_location"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson",
+      "gemini"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Daily Sun"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.1.0"
+  }
+}
