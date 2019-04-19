@@ -34,20 +34,23 @@ clock.ontick = (evt) => {
   
 }
 
+
 // Sunrise/Sunset Calculation and Geolocation Code
 
 // I'm sorry this is a terrible hack
-//console.log("Confirm Library Import: " + sunCalcLibrary());
+console.log("Confirm Library Import: " + sunCalcLibrary());
 sunCalcLibrary();
 
-geolocation.getCurrentPosition(function(position) {
+const sunriseTimeText = document.getElementById("sunriseTimeText");
+const sunsetTimeText = document.getElementById("sunsetTimeText");
+
+function locationSuccess(position) {
   
   //Sunrise
-  const sunriseTimeText = document.getElementById("sunriseTimeText");
   var sunriseTime = new Date().sunrise(position.coords.latitude, position.coords.longitude);
   let sunriseTimeHours = sunriseTime.getHours();
   let sunriseTimeMins = util.zeroPad(sunriseTime.getMinutes());
-  //console.log("Sunrise:" + sunriseTime);
+  console.log("Sunrise:" + sunriseTime);
   if (preferences.clockDisplay === "12h") {
     sunriseTimeHours = sunriseTimeHours % 12 || 12;
     sunriseTimeText.text = `${sunriseTimeHours}:${sunriseTimeMins} AM`;
@@ -57,11 +60,10 @@ geolocation.getCurrentPosition(function(position) {
   }
   
   //Sunset
-  const sunsetTimeText = document.getElementById("sunsetTimeText");
   var sunsetTime = new Date().sunset(position.coords.latitude, position.coords.longitude);
   let sunsetTimeHours = sunsetTime.getHours() % 12 || 12;
   let sunsetTimeMins = util.zeroPad(sunsetTime.getMinutes());
-  //console.log("Sunset:" + sunsetTime);
+  console.log("Sunset:" + sunsetTime);
   if (preferences.clockDisplay === "12h") {
     sunsetTimeHours = sunsetTimeHours % 12 || 12;
     sunsetTimeText.text = `${sunsetTimeHours}:${sunsetTimeMins} PM`;
@@ -69,4 +71,27 @@ geolocation.getCurrentPosition(function(position) {
     sunsetTimeHours = util.zeroPad(sunsetTimeHours);
     sunsetTimeText.text = `${sunsetTimeHours}:${sunsetTimeMins}`;
   }
-});
+}
+
+function locationError(error) {
+  console.log("Error: " + error.code,
+              "Message: " + error.message);
+  let errorText = "No GPS, Please Wait";
+  sunriseTimeText.text = `${errorText}`;
+  sunsetTimeText.text = `${errorText}`;
+}
+
+var getCurrentPosition_geo_options = {
+  enableHighAccuracy: false, 
+  maximumAge        : 0, 
+  timeout           : Infinity,
+};
+
+var watchPosition_geo_options = {
+  enableHighAccuracy: false, 
+  maximumAge        : 0, 
+  timeout           : 1000,
+};
+
+geolocation.getCurrentPosition(locationSuccess, locationError, getCurrentPosition_geo_options);
+//geolocation.watchPosition(locationSuccess, locationError, watchPosition_geo_options);
