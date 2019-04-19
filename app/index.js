@@ -38,7 +38,7 @@ clock.ontick = (evt) => {
 
 // Sunrise/Sunset Calculation and Geolocation Code
 
-// I'm so sorry this is a terrible hack to import library
+// I'm so sorry this is a terrible hack to import calculation library
 console.log("Confirm Library Import: " + sunCalcLibrary());
 sunCalcLibrary();
 
@@ -51,7 +51,7 @@ sunriseTimeText.text = `${gpswaitText}`;
 sunsetTimeText.text = `${gpswaitText}`;
 
 
-// Check to see if cache files are in place
+// Function that checks for a particular file
 import { listDirSync } from "fs";
 function file_exists(filename) {
     let dirIter = "";
@@ -60,54 +60,27 @@ function file_exists(filename) {
     return false;
 }
 
+// Check to see if GPS cache files are in place
 if(file_exists("utf8_lat.txt")) {
   console.log("GPS cache file exists, using cache");
   let utf8_read_lat = parseFloat(fs.readFileSync("utf8_lat.txt", "utf-8"));
   let utf8_read_long = parseFloat(fs.readFileSync("utf8_long.txt", "utf-8"));
   let cacheSunriseTime = new Date().sunrise(utf8_read_lat, utf8_read_long);
   let cacheSunsetTime = new Date().sunset(utf8_read_lat, utf8_read_long);
-  timeCalculation(cacheSunriseTime, cacheSunsetTime);
+  formatTime(cacheSunriseTime, cacheSunsetTime);
 } else {
   console.log("GPS cache file does not exist");
 }
 
-//let file_stats = fs.existsSync("utf8_lat.txt");
-/*
-if (fs.access("utf8_lat.txt")) {
-  let utf8_read_lat = parseFloat(fs.readFileSync("utf8_lat.txt", "utf-8"));
-  let utf8_read_long = parseFloat(fs.readFileSync("utf8_long.txt", "utf-8"));
-  let cacheSunriseTime = new Date().sunrise(utf8_read_lat, utf8_read_long);
-  let cacheSunsetTime = new Date().sunset(utf8_read_lat, utf8_read_long);
-  timeCalculation(cacheSunriseTime, cacheSunsetTime);
-} else {
-  geolocation.getCurrentPosition(locationSuccess, locationError, getCurrentPosition_geo_options);
-}
-
-import { existsSync } from "fs";
-let chucktesta = existsSync("utf8_lat.txt");
-console.log("Sunrise:" + chucktesta);
-*/
-//import { openSync } from "fs";
-//openSync("utf8_lat.txt", "r");
-//console.log("contents:" + fs.listDirSync(""))
-
-/*
-import { listDirSync } from "fs";
-var listDir = listDirSync("/private/data");
-var dirIter;
-while((dirIter = listDir.next()) && !dirIter.done) {
-console.log("directory: " + dirIter.value);
-}
-*/
-
-
-function timeCalculation(sunriseTime, sunsetTime) {
+// Abstracted time formatting code into its own function 
+function formatTime(sunriseTime, sunsetTime) {
   let sunriseTimeHours = sunriseTime.getHours();
   let sunriseTimeMins = util.zeroPad(sunriseTime.getMinutes());
   let sunsetTimeHours = sunsetTime.getHours() % 12 || 12;
   let sunsetTimeMins = util.zeroPad(sunsetTime.getMinutes());
-  console.log("Sunrise:" + sunriseTime);
-  console.log("Sunset:" + sunsetTime);
+  //debugging
+  //console.log("Sunrise:" + sunriseTime);
+  //console.log("Sunset:" + sunsetTime);
   if (preferences.clockDisplay === "12h") {
     sunriseTimeHours = sunriseTimeHours % 12 || 12;
     sunsetTimeHours = sunsetTimeHours % 12 || 12;
@@ -121,8 +94,7 @@ function timeCalculation(sunriseTime, sunsetTime) {
   }
 }
 
-
-
+// GeoLocation Function
 function locationSuccess(position) {
   //Caching new GPS coords for future access
   let utf8_lat = position.coords.latitude.toString();
@@ -136,39 +108,9 @@ function locationSuccess(position) {
   //console.log("UTF-8 Long Data: " + utf8_read_long);
   let gpsSunriseTime = new Date().sunrise(position.coords.latitude, position.coords.longitude);
   let gpsSunsetTime = new Date().sunset(position.coords.latitude, position.coords.longitude);
-  timeCalculation(gpsSunriseTime, gpsSunsetTime);
+  formatTime(gpsSunriseTime, gpsSunsetTime);
 }
   
-  /*
-  //Sunrise
-  var sunriseTime = new Date().sunrise(position.coords.latitude, position.coords.longitude);
-  let sunriseTimeHours = sunriseTime.getHours();
-  let sunriseTimeMins = util.zeroPad(sunriseTime.getMinutes());
-  console.log("Sunrise:" + sunriseTime);
-  if (preferences.clockDisplay === "12h") {
-    sunriseTimeHours = sunriseTimeHours % 12 || 12;
-    sunriseTimeText.text = `${sunriseTimeHours}:${sunriseTimeMins} AM`;
-  } else {
-    sunriseTimeHours = util.zeroPad(sunriseTimeHours);
-    sunriseTimeText.text = `${sunriseTimeHours}:${sunriseTimeMins}`;
-  }
-  
-  //Sunset
-  var sunsetTime = new Date().sunset(position.coords.latitude, position.coords.longitude);
-  let sunsetTimeHours = sunsetTime.getHours() % 12 || 12;
-  let sunsetTimeMins = util.zeroPad(sunsetTime.getMinutes());
-  console.log("Sunset:" + sunsetTime);
-  if (preferences.clockDisplay === "12h") {
-    sunsetTimeHours = sunsetTimeHours % 12 || 12;
-    sunsetTimeText.text = `${sunsetTimeHours}:${sunsetTimeMins} PM`;
-  } else {
-    sunsetTimeHours = util.zeroPad(sunsetTimeHours);
-    sunsetTimeText.text = `${sunsetTimeHours}:${sunsetTimeMins}`;
-  }
-
-
-*/
-
 function locationError(error) {
   console.log("Error: " + error.code,
               "Message: " + error.message);
