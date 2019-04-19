@@ -1,0 +1,32 @@
+<svg class="background">
+  <text x="50%" y="15%"
+        fill="white"
+        font-family="Fabrikat-Regular"
+        text-anchor="middle">Current Time:</text>
+  <text x="50%" y="40%"
+        id="currentTime" />
+  <text x="50%" y="55%"
+        fill="white"
+        font-size="24"
+        font-family="Fabrikat-Regular"
+        text-anchor="middle">Sunrise:</text>
+  <text x="50%" y="65%"
+        fill="white"
+        font-size="32"
+        font-family="Fabrikat-Bold"
+        text-anchor="middle"
+        text-length="32"
+        id="sunriseTimeText" />
+  <text x="50%" y="80%"
+        fill="white"
+        font-size="24"
+        font-family="Fabrikat-Regular"
+        text-anchor="middle">Sunset:</text>
+  <text x="50%" y="90%"
+        fill="white"
+        font-size="32"
+        font-family="Fabrikat-Bold"
+        text-anchor="middle"
+        text-length="32"
+        id="sunsetTimeText" />
+</svg>
