@@ -1,0 +1,29 @@
+.background {
+  viewport-fill: black;
+}
+
+#currentTime {
+  font-size: 75;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 50%+40;
+  fill: white;
+}
+
+#sunriseTimeText {
+  font-size: 16;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  fill: red;
+}
+
+#sunsetTimeText {
+  font-size: 16;
+  font-family: Fabrikat-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  fill: red;
+}
