@@ -1,3 +1,15 @@
+/**
+ *	A Fitbit Sunrise/Sunset Time app. By Anthony Nguyen. 
+ * 
+ *  Copyright © 2019 Anthony Nguyen, under the MIT License 
+ *  except the included calculation library by Matt Kane. 
+ *  All rights reserved.
+ *
+ *  See additional documentation, license info, etc. at the Github repo: 
+ *  https://github.com/neoterix/fitbit-sunrise-sunset-app/
+ *
+ */
+
 import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
@@ -76,7 +88,7 @@ if(file_exists("utf8_lat.txt")) {
 function formatTime(sunriseTime, sunsetTime) {
   let sunriseTimeHours = sunriseTime.getHours();
   let sunriseTimeMins = util.zeroPad(sunriseTime.getMinutes());
-  let sunsetTimeHours = sunsetTime.getHours() % 12 || 12;
+  let sunsetTimeHours = sunsetTime.getHours();
   let sunsetTimeMins = util.zeroPad(sunsetTime.getMinutes());
   //debugging
   //console.log("Sunrise:" + sunriseTime);
@@ -106,6 +118,7 @@ function locationSuccess(position) {
   //console.log("UTF-8 Lat Data: " + utf8_read_lat);
   //let utf8_read_long = fs.readFileSync("utf8_long.txt", "utf-8");
   //console.log("UTF-8 Long Data: " + utf8_read_long);
+  console.log("GPS Data refreshed, cache updated");
   let gpsSunriseTime = new Date().sunrise(position.coords.latitude, position.coords.longitude);
   let gpsSunsetTime = new Date().sunset(position.coords.latitude, position.coords.longitude);
   formatTime(gpsSunriseTime, gpsSunsetTime);
