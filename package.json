@@ -2,7 +2,7 @@
   "fitbit": {
     "appUUID": "9c6b5381-5580-4a00-9500-879737fd8638",
     "appType": "app",
-    "appDisplayName": "Daily Sun",
+    "appDisplayName": "Sunrise/Sunset",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ff5722",
     "requestedPermissions": [
@@ -15,7 +15,7 @@
     ],
     "i18n": {
       "en": {
-        "name": "Daily Sun"
+        "name": "Sunrise/Sunset"
       }
     },
     "defaultLanguage": "en-US"
