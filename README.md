@@ -21,7 +21,7 @@ A small, hacked together Sunrise and Sunset times app for the Fitbit Versa.
 * The downside here is that if the user has moved significantly from the data was last cached, the sunrise/sunset times could be off or misleading, but I suspect that's a relatively narrow case.
 
 ### Resources/Credits
-* A previous version of the icon was cropped from Edson Perotoni's sunset photo found here: https://flic.kr/p/sg6zpq Thank you for dedicating the image to the public domain!
+* A previous version of the app icon was cropped from Edson Perotoni's sunset photo found here: https://flic.kr/p/sg6zpq Thank you for dedicating the image to the public domain!
 * The JS sunrise/sunset calculation library was created by Matt Kane (@ascorbic) and distributed under the GNU Lesser General Public License v2.1. The Github repo can be found here: https://github.com/Triggertrap/sun-js
 
 > Written with [StackEdit](https://stackedit.io/).
