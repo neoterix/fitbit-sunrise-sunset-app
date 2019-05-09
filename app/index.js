@@ -1,5 +1,6 @@
 /**
- *	A Fitbit Sunrise/Sunset Time app. By Anthony Nguyen. 
+ *	"Sunup/Sunset": A Daily Sunrise/Sunset Time app for Fitbit devices
+ *  By Anthony Nguyen. 
  * 
  *  Copyright © 2019 Anthony Nguyen, under the MIT License 
  *  except the included calculation library by Matt Kane. 
@@ -132,10 +133,12 @@ function locationError(error) {
   sunsetTimeText.text = `${errorText}`;
 }
 
+// Add geo_options as 3rd argument to geolocation.getCurrentPosition() to tweak
+// geolocation settings as defined here. Removed for debugging.
 var geo_options = {
   enableHighAccuracy: false, 
   maximumAge        : 0, 
   timeout           : Infinity,
 };
 
-geolocation.getCurrentPosition(locationSuccess, locationError, geo_options);
+geolocation.getCurrentPosition(locationSuccess, locationError);
